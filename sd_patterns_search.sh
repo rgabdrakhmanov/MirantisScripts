@@ -1,9 +1,9 @@
 #!/bin/bash
-# bash script for searching patterns that could indicate problems and errors in the Support Dump of a MKE cluster
+# bash script for searching patterns that could indicate problems and errors in the extracted Support Dump of a MKE cluster
 # Developed by gdoumas@mirantis.com Feb 2021
 # Prerequisites : A linux laptop with bash installed, or a windows laptop with Windows Subsystem for Linux , wsl , that provides an Ubuntu inside windows
 # TO DO : put more patterns, and maybe remove some if the information they give (matched lines) can be gathered by another pattern
-# This script is called by sd_handle.sh , so they must be in the same folder
+# This script is called by sd_handle.sh(sd_handle.py) , so they must be in the same folder
 
 search_sd() {
   for file in $( grep -r  -l "$PATTERN" . ) 
