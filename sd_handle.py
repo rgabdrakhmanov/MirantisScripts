@@ -24,10 +24,11 @@ if 'sd_patterns_search.sh' not in os.listdir():
 elif not os.access('sd_patterns_search.sh', os.X_OK):
     sys.exit('sd_patterns_search.sh is not executable, please give it the execute permission.')
    
-HOME = os.path.expanduser("~")        #HOME = Path.home()    # same result as the os.path.expanduser("~") 
+HOME = os.path.expanduser("~")        
+#HOME = Path.home()    # same result as the os.path.expanduser("~") 
 TARGETPATH = os.path.join(HOME, 'Documents', 'SDextractions')
-SD_DOWNLOAD_DIR='/mnt/c/Users/georgios doumas/Downloads/'    # for wsl - windows subsystem for linux
-# SD_DOWNLOAD_DIR = os.path.join(HOME, 'Downloads')          # for linux an macos
+# SD_DOWNLOAD_DIR='/mnt/c/Users/user name/Downloads/'      # for wsl - windows subsystem for linux
+SD_DOWNLOAD_DIR = os.path.join(HOME, 'Downloads')          # for linux an macos
 Path(TARGETPATH).mkdir(parents = True, exist_ok = True)    # creates the folders 'Documents/SDextractions' if they do not exist
 
 sd_arg_parser = argparse.ArgumentParser(description = "Support Dump handler for downloaded sd zip files", add_help=True)
@@ -37,7 +38,7 @@ sf_case = sf_case_arg.sfcase
 if sf_case == '0':
     sys.exit("give the SF case number, as in : \n sd_handle.py -c 12345 ")
 
-downloaded_sd_files = glob.glob(SD_DOWNLOAD_DIR + 'docker-support-*zip')  #### does not seem to work as I want for windows!
+downloaded_sd_files = glob.glob(SD_DOWNLOAD_DIR + 'docker-support-*zip')       ## does not seem to work as I want for windows!
 # downloaded_sd_files = [f for f in os.listdir(SD_DOWNLOAD_DIR) if f.startswith('docker-support-') and f.endswith('.zip')]  ## seems OK for Windows
 number_of_downloaded_sd = len(downloaded_sd_files)
 if number_of_downloaded_sd != 1:
