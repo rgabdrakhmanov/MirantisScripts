@@ -3,10 +3,8 @@
 # converted to python3 with the help of 2to3 application by gdoumas,
 # and expanded to output the OS version (and show a more modern output with MCR,MKE,MSR instead of ENGINE,UCP,DTR)
 # Purpose: To overcome the limitations of the shell-based version of `sd_nodes`
-# Tested On (by gdoumas@mirantis.com Georgios Doumas) :
-# - Python 3.8.5  in Ubuntu20.04 as a LinuxSubsystem4Windows
-# Requirements:
-# - TopLevelDir containing the extracted support dump, especially : ucp-nodes.txt
+# Tested On (by gdoumas@mirantis.com Georgios Doumas) for Python 3.8.5  in Ubuntu20.04 as a LinuxSubsystem4Windows
+# Requirements: The script is run from inside the folder containing the extracted support dump, especially : ucp-nodes.txt
 
 import json
 import os
