@@ -18,9 +18,11 @@ Usage :
 
 where 12345 is the SF case number 
 
+The script sd_handle.py assumes there is only 1 downloaded docker-support-xxx.zip in your ~/Downloads/ folder.
+
 A new folder named SDextractions will be created under your ~/Documents , and inside SDextractions a subfolder named original_sd_zips
 
-The docker-support-xxxx.zip files will be moved in the SDextractions/original_sd_zips/
+The docker-support-xxxx.zip files will be moved from the Downloads/ in the SDextractions/original_sd_zips/
 
 so if you want to attach them in a Jira case, you will find them there, each under its own subfolder of SF case
 
