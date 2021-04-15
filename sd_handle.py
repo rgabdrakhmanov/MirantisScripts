@@ -7,7 +7,7 @@
 # you should see the 3 files as sd_handle.py, sd_nodes3os.py and sd_patterns_search.sh is executable
 # Usage: be in the folder that the 3 files are, and call it as
 #        ./sd_handle.py -c 12345  (where 12345 is the SF case number)
-# All 3 files developed by George Doumas, send comments to gdoumas@mirantis.com (or find me in slack channel) 
+# All 3 files developed by George Doumas, send comments to gdoumas@mirantis.com (or find me in slack channel)
 import os
 import shutil
 import zipfile
@@ -24,8 +24,8 @@ if HOSTENV.startswith('Windows'):      ## for a windows laptop, this would be eg
 elif HOSTENV.find('Microsoft') != -1:  ## for a wsl this can be 'Linux-4.4.0-19041-Microsoft-x86_64-with-glibc2.29'
     WIN, WSL = False, True
 else:
-    WIN, WSL = False, False            ##  then we are on a linux or macos 
-SCRIPTSDIR = os.getcwd() 
+    WIN, WSL = False, False            ##  then we are on a linux or macos
+SCRIPTSDIR = os.getcwd()
 if 'sd_nodes3os.py' in os.listdir():
     import sd_nodes3os
 else:
@@ -34,7 +34,7 @@ if 'sd_patterns_search.sh' not in os.listdir():
     sys.exit('sd_patterns_search.sh is not in the {}, please copy-paste it.'.format(SCRIPTSDIR))
 elif not os.access('sd_patterns_search.sh', os.X_OK):
     sys.exit('sd_patterns_search.sh is not executable, please give it the execute permission.')
-   
+
 HOME = os.path.expanduser("~")
 TARGETPATH = os.path.join(HOME, 'Documents', 'SDextractions')
 Path(TARGETPATH).mkdir(parents = True, exist_ok = True)    # creates the folders '~/Documents/SDextractions' if they do not exist
@@ -43,6 +43,7 @@ if WSL:
     SD_DOWNLOAD_DIR =  os.path.join(BASEUSERDIR, 'Downloads')
 else:
     SD_DOWNLOAD_DIR = os.path.join(HOME, 'Downloads')
+#sys.exit(" Will search in {}".format(SD_DOWNLOAD_DIR))  ### <-------------
 
 sd_arg_parser = argparse.ArgumentParser(description = "Support Dump handler for downloaded sd zip files", add_help=True)
 sd_arg_parser.add_argument('-c', '--case', dest='sfcase', help="The SF case number typed as imple integer: -c 43215", default='0', type=str)
@@ -51,7 +52,7 @@ sf_case = sf_case_arg.sfcase
 if sf_case == '0':
     sys.exit("give the SF case number, as in : \n sd_handle.py -c 12345 ")
 
-downloaded_sd_files = glob.glob(SD_DOWNLOAD_DIR + os.sep + 'docker-support-*zip')  
+downloaded_sd_files = glob.glob(SD_DOWNLOAD_DIR + os.sep + 'docker-support-*zip')
 number_of_downloaded_sd = len(downloaded_sd_files)
 if number_of_downloaded_sd != 1:
     print("There are {} docker-support-*zip files in {} ".format(number_of_downloaded_sd, SD_DOWNLOAD_DIR))
