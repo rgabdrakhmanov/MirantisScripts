@@ -81,6 +81,6 @@ try:
 except :
     print("Could not process nodes with sd_nodes3os.py")
 if  WIN:
-    sys.exit("Running on a Windows machine, so I cannot call the sd_patterns_search.sh")
+    sys.exit("Running on a Windows machine, so I cannot call the sd_patterns_search.sh. You can install WSL to have Ubuntu under windows")
 else:
     run_sd_patterns = subprocess.run( os.path.join(SCRIPTSDIR,'sd_patterns_search.sh') ) ## sd_patterns_search will be turned into python someday
