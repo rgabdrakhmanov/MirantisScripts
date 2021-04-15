@@ -27,9 +27,16 @@ so if you want to attach them in a Jira case, you will find them there, each und
 So you will get to a structure similar to this :
 
 ~/Documents/SDextractions/
+
                           12345/docker-support-1/extracted-folders-here
+                          
                           12345/docker-support-2/extracted-folders-here
+                          
                           12346/docker-support-1/extracted-folders-here
+                          
                           original_sd_zips/12345/docker-support-1.zip
+                          
                           original_sd_zips/12345/docker-support-2.zip
+                          
                           original_sd_zips/12346/docker-support-1.zip
+                          
