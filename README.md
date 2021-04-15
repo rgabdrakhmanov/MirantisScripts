@@ -1,6 +1,4 @@
-MirantisScripts
-
-Weather you are on a linux/macos or a Windows Subsystem for Linux , this script should work.
+Weather you are on a linux/macos or a Windows Subsystem for Linux, the scripts should work.
 
 In a terminal session (either direct for linux/macos, or after starting the wsl in CMD), go to your Documents folder and clone :
 
@@ -42,3 +40,5 @@ So you will get to a structure similar to this :
                           
                                            12346/docker-support-1.zip
                           
+
+At some point (in April I hope) I will transform the sd_patterns_search from bash to py, so somebody with a Windows laptop will not have to bother installing a WSL 
