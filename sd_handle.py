@@ -24,14 +24,14 @@ if HOSTENV.startswith('Windows'):      ## for a windows laptop, this would be eg
 elif HOSTENV.find('Microsoft') != -1:  ## for a wsl this can be 'Linux-4.4.0-19041-Microsoft-x86_64-with-glibc2.29'
     WIN, WSL = False, True
 else:
-    WIN, WSL = False, False            ##  then we are on a linux or macos
-SCRIPTSDIR = os.getcwd()
+    WIN, WSL = False, False            ## then we are on a linux or macos
+SCRIPTSDIR = os.getcwd()               ## expected to be ~/Documents/MirantisScripts
 if 'sd_nodes3os.py' in os.listdir():
     import sd_nodes3os
 else:
-    sys.exit('sd_nodes3os.py is not in the {}, please copy-paste it.'.format(SCRIPTSDIR))
+    sys.exit('sd_nodes3os.py is not in the {}, have you done the git clone correctly?'.format(SCRIPTSDIR))
 if 'sd_patterns_search.sh' not in os.listdir():
-    sys.exit('sd_patterns_search.sh is not in the {}, please copy-paste it.'.format(SCRIPTSDIR))
+    sys.exit('sd_patterns_search.sh is not in the {}, have you done the git clone correctly?'.format(SCRIPTSDIR))
 elif not os.access('sd_patterns_search.sh', os.X_OK):
     sys.exit('sd_patterns_search.sh is not executable, please give it the execute permission.')
 
@@ -43,7 +43,6 @@ if WSL:
     SD_DOWNLOAD_DIR =  os.path.join(BASEUSERDIR, 'Downloads')
 else:
     SD_DOWNLOAD_DIR = os.path.join(HOME, 'Downloads')
-#sys.exit(" Will search in {}".format(SD_DOWNLOAD_DIR))  ### <-------------
 
 sd_arg_parser = argparse.ArgumentParser(description = "Support Dump handler for downloaded sd zip files", add_help=True)
 sd_arg_parser.add_argument('-c', '--case', dest='sfcase', help="The SF case number typed as imple integer: -c 43215", default='0', type=str)
