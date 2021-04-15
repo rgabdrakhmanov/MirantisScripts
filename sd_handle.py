@@ -21,7 +21,7 @@ from pathlib import Path
 HOSTENV = platform.platform()
 if HOSTENV.startswith('Windows'):      ## for a windows laptop, this would be eg 'Windows-10-10.0.19041-SP0'
     WIN, WSL = True, False
-elif HOSTENV.find('Microsoft') != -1:  ## for a wsl this can be 'Linux-4.4.0-19041-Microsoft-x86_64-with-glibc2.29'
+elif HOSTENV.find('Microsoft') != -1:  ## for a wsl(WindowsSubsystemForLinux) this can be 'Linux-4.4.0-19041-Microsoft-x86_64-with-glibc2.29'
     WIN, WSL = False, True
 else:
     WIN, WSL = False, False            ## then we are on a linux or macos
@@ -35,14 +35,15 @@ if 'sd_patterns_search.sh' not in os.listdir():
 elif not os.access('sd_patterns_search.sh', os.X_OK):
     sys.exit('sd_patterns_search.sh is not executable, please give it the execute permission.')
 
-HOME = os.path.expanduser("~")
-TARGETPATH = os.path.join(HOME, 'Documents', 'SDextractions')
-Path(TARGETPATH).mkdir(parents = True, exist_ok = True)    # creates the folders '~/Documents/SDextractions' if they do not exist
-if WSL:
-    BASEUSERDIR = os.path.abspath(os.getcwd()).split('Documents')[0]   ## that should be /mnt/Users/user name/
-    SD_DOWNLOAD_DIR =  os.path.join(BASEUSERDIR, 'Downloads')
+HOME = os.path.expanduser("~")                                    ## /home/wsluser  or /home/linuxusername or /User/macosuser
+TARGETPATH = os.path.join(HOME, 'Documents', 'SDextractions')     ## I will correct it in case of wsl 
+if WSL:                                                                ## I do not want to use the /home/wsluser but the actual Windows folders
+    BASEUSERDIR = os.path.abspath(os.getcwd()).split('Documents')[0]   ## that should be /mnt/Users/wsluser name/
+    SD_DOWNLOAD_DIR =  os.path.join(BASEUSERDIR, 'Downloads')          ## that should be /mnt/Users/wsluser name/Downloads
+    TARGETPATH = os.path.join(BASEUSERDIR, 'Documents', 'SDextractions')  ## that should be /mnt/Users/wsluser name/Documents/SDextractions
 else:
-    SD_DOWNLOAD_DIR = os.path.join(HOME, 'Downloads')
+    SD_DOWNLOAD_DIR = os.path.join(HOME, 'Downloads')                 ## /home/username/Downloads  or /User/somename/Downloads
+Path(TARGETPATH).mkdir(parents = True, exist_ok = True)    # creates the folders Documents/SDextractions if they do not exist
 
 sd_arg_parser = argparse.ArgumentParser(description = "Support Dump handler for downloaded sd zip files", add_help=True)
 sd_arg_parser.add_argument('-c', '--case', dest='sfcase', help="The SF case number typed as imple integer: -c 43215", default='0', type=str)
