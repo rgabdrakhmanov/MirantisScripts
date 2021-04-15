@@ -36,7 +36,7 @@ So you will get to a structure similar to this :
                           
                           original_sd_zips/12345/docker-support-1.zip
                           
-                          original_sd_zips/12345/docker-support-2.zip
+                                           12345/docker-support-2.zip
                           
-                          original_sd_zips/12346/docker-support-1.zip
+                                           12346/docker-support-1.zip
                           
