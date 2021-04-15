@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# sd_handle.py: Utility to handle the support dump zip after it is downloaded from SF in folder Downloads
+# sd_handle.py: Utility to handle the support dump zip, after it is downloaded from SF in folder Downloads
 # Will extract it in a folder ~/Documents/SDextractions/sf_case_number and also run the sd_nodes3os.py and the sd_patterns_search.sh
 # Prerquisites: files sd_nodes3os.py and sd_patterns_search.sh exist in same folder under Documents folder
 # git clone https://github.com/georgiosdoumas/MirantisScripts.git
