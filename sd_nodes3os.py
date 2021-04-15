@@ -66,7 +66,7 @@ def full_os_details(hostname):
     except FileNotFoundError:
         return full_os_text
 
-            
+
 def getnodes(f):
     node_tuples = []
 
