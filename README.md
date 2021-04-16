@@ -46,9 +46,13 @@ Documents/SDextractions/
 │   └── docker-support-haty4ze-20210416-10_28_10
 
 └── original_sd_zips
+
     ├── 4376358
+    
     ├── 4393603
+    
     ├── 4393606
+    
     └── 4395099
 
 At some point (in April I hope) I will transform the sd_patterns_search from bash to py, so somebody with a Windows laptop will not have to bother installing a WSL
