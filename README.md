@@ -22,7 +22,7 @@ python3 sd_handle -c 12345
 
 The script sd_handle.py assumes there is only 1 downloaded docker-support-xxx.zip in your ~/Downloads/ folder. 
 And that is why it will move any new zip in another folder, after it finish processing it.
-A new folder named SDextractions will be created under your ~/Documents , and inside SDextractions a subfolder named original_sd_zips
+A new folder named SDextractions will be created under your ~/Documents , and inside SDextractions/ a subfolder named original_sd_zips/.
 The docker-support-xxxx.zip file (after being extracted) will be moved from the Downloads/ in the SDextractions/original_sd_zips/
 so if you want to attach them in a Jira case, you will find them there, each under its own subfolder of SF case.
 In the end  you will get to a structure similar to this :
@@ -47,13 +47,13 @@ Documents/SDextractions/
 
 └── original_sd_zips
 
-    ├── 4376358
+|   ├── 4376358
     
-    ├── 4393603
+|   ├── 4393603
     
-    ├── 4393606
+|   ├── 4393606
     
-    └── 4395099
+|   └── 4395099
 
 At some point (in April I hope) I will transform the sd_patterns_search from bash to py, so somebody with a Windows laptop will not have to bother installing a WSL
 
