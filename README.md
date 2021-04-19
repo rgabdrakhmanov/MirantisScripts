@@ -48,12 +48,14 @@ Documents/SDextractions/
 
 └── original_sd_zips
 
-|   ├── 1234567
+|       ├── 1234567
     
-|   ├── 1234568
+|       ├── 1234568
     
-|   ├── 1234569
+|       ├── 1234569
     
 
-At some point (in April I hope) I will transform the sd_patterns_search from bash to py, so somebody with a Windows laptop will not have to bother installing a WSL
+At some point (in April I hope) I will transform the sd_patterns_search from bash to py, so somebody with a Windows laptop will not have to bother installing a WSL. So every few days to get the latest versions, do (while you are inside the MirantisScripts/) 
+
+git pull  https://github.com/georgiosdoumas/MirantisScripts.git
 
