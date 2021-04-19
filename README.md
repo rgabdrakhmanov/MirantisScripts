@@ -18,7 +18,7 @@ Usage  for linux (and Windows with wsl) :
 where 12345 is the SF case number 
 
 Usage for macos :
-python3 sd_handle -c 12345
+python3 sd_handle.py -c 12345
 
 The script sd_handle.py assumes there is only 1 downloaded docker-support-xxx.zip in your ~/Downloads/ folder. 
 And that is why it will move any new zip in another folder, after it finish processing it.
