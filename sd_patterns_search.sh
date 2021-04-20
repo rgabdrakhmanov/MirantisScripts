@@ -22,6 +22,7 @@ PATTERNS=(
 '"level":"fatal"'
 'left gossip cluster'
 "healthscore:[2-9] (connectivity issues)"
+'with result "error:context canceled" took too long '
 'has prevented the request from succeeding (get secrets)'
 'is in state down: Unhealthy UCP manager: ERROR: RethinkDB Health check timed out'
 'is in state down: Awaiting healthy status in classic node inventory - current status: Unhealthy'
