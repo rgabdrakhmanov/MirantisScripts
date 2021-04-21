@@ -4,7 +4,7 @@
 # Prerequisites : A linux laptop with bash installed, or a windows laptop with Windows Subsystem for Linux , wsl , that provides an Ubuntu inside windows
 # TO DO : put more patterns, and maybe remove some if the information they give (matched lines) can be gathered by another pattern
 # This script is called by sd_handle.sh(sd_handle.py) , so they must be in the same folder
-
+#### 'containers with unready status' 
 search_sd() {
   for file in $( grep -r  -l "$PATTERN" . ) 
   do
@@ -32,7 +32,7 @@ PATTERNS=(
 "heartbeat to manager .* failed"
 'etcd cluster is unavailable or misconfigured'
 'Failed to create existing container'
-'containers with unready status'
+'Failed to load config file'
 'Failed to allocate address: Invalid address space'
 'Failed to delegate: Failed to allocate address: No available addresses'
 'Failed to start certificate controller: error reading CA cert file'
