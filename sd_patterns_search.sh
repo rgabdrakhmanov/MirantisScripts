@@ -4,7 +4,7 @@
 # Prerequisites : A linux laptop with bash installed, or a windows laptop with Windows Subsystem for Linux , wsl , that provides an Ubuntu inside windows
 # TO DO : put more patterns, and maybe remove some if the information they give (matched lines) can be gathered by another pattern
 # This script is called by sd_handle.sh(sd_handle.py) , so they must be in the same folder
-#### 'containers with unready status' 
+
 search_sd() {
   for file in $( grep -r  -l "$PATTERN" . ) 
   do
@@ -18,6 +18,7 @@ search_sd() {
   done
 }
 
+#### 'containers with unready status'  ## this produces very long lines, and I am not sure if it is helpful to search for, so I took it out for now
 PATTERNS=(
 '"level":"fatal"'
 'left gossip cluster'
@@ -65,4 +66,4 @@ do
   search_sd
   echo "------"
 done
-grep -r LOG_LEVEL=debug . ## to be sure that no containers of the cluster have been forgotten on a debug level
+grep -r LOG_LEVEL=debug  ## to be sure that no containers of the cluster have been forgotten on a debug level
