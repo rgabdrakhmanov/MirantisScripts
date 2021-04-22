@@ -34,6 +34,7 @@ PATTERNS=(
 'Failed to create existing container'
 'Failed to load config file'
 'Failed to allocate address: Invalid address space'
+' error="failed to allocate network IP for task '
 'Failed to delegate: Failed to allocate address: No available addresses'
 'Failed to start certificate controller: error reading CA cert file'
 'unable to query [dD][bB]: rethinkdb'
