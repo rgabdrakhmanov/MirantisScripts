@@ -66,4 +66,4 @@ do
   search_sd
   echo "------"
 done
-grep -r LOG_LEVEL=debug  ## to be sure that no containers of the cluster have been forgotten on a debug level
+grep -r LOG_LEVEL=debug . ## to be sure that no containers of the cluster have been forgotten on a debug level
