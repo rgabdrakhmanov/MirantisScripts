@@ -46,6 +46,7 @@ PATTERNS=(
 'failed to complete security handshake from'
 'certificate has expired or is not yet valid'
 '"OOMKilled":true'
+'invoked oom-killer'
 '[Cc]onnection refused '
 'rejected connection from'
 ':53: no such host'
