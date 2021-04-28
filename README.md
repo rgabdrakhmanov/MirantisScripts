@@ -27,9 +27,10 @@ And that is why it will move any new zip in another folder, after it finish proc
 so if you want to attach them in a Jira case, you will find them there, each under its own subfolder of SF case.
 
 Of course you can use a string that is not only a SF case number, but have something to remind you of what the case is about, for example you can use it as 
-
-./sd_handle.py -c 12345msr (if you want to remind your self that the case was about MSR) or -c 54321upg if it was for a proactive upgrade
-
+```
+./sd_handle.py -c 12345msr 
+```
+(if you want to remind your self that the case was about MSR) or -c 54321upg if it was for a proactive upgrade.
 In the end  you will get to a structure similar to this :
 
 Documents/SDextractions/
@@ -59,6 +60,6 @@ Documents/SDextractions/
 
 
 At some point (in April I hope) I will transform the sd_patterns_search from bash to py, so somebody with a Windows laptop will not have to bother installing a WSL. So every few days to get the latest versions, do (while you are inside the MirantisScripts/) 
-
+```
 git pull  https://github.com/georgiosdoumas/MirantisScripts.git
-
+```
