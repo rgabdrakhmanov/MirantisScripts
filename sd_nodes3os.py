@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # Author: jim.carroll@docker.com  (of original version for python2.7)
 # converted to python3 with the help of 2to3 application by gdoumas,
-# and expanded to output the OS version (and show a more modern output with MCR,MKE,MSR instead of ENGINE,UCP,DTR)
+# and expanded to output the OS version, hypervisor (and show a more modern output with MCR,MKE,MSR instead of ENGINE,UCP,DTR)
 # Purpose: To overcome the limitations of the shell-based version of `sd_nodes`
 # Tested On (by gdoumas@mirantis.com Georgios Doumas) for Python 3.8.5  in Ubuntu20.04 as a LinuxSubsystem4Windows
 # Requirements: The script is run from inside the folder containing the extracted support dump, especially : ucp-nodes.txt
@@ -38,20 +38,22 @@ def getddcver(nodename,f_glob,k):
 
 
 def row_print(r, w):
-    print('{:{w0}}  {:{w1}}  {:{w2}}  {:{w3}}  {:{w4}}  {:{w5}}  {:{w6}}  {:{w7}}  {:{w8}}  {:{w9}}  {:{w10}}  {:{w11}}  {:{w11}} {}'.format(
-            *r, w0=w[0], w1=w[1], w2=w[2], w3=w[3], w4=w[4], w5=w[5], w6=w[6], w7=w[7], w8=w[8], w9=w[9], w10=w[10], w11=w[11]) )
+    print('{:{w0}}  {:{w1}}  {:{w2}}  {:{w3}}  {:{w4}}  {:{w5}}  {:{w6}}  {:{w7}}  {:{w8}}  {:{w9}}  {:{w10}}  {:{w11}}  {:{w12}}  {:{w13}}  {:{w14}}'.format(
+            *r, w0=w[0], w1=w[1], w2=w[2], w3=w[3], w4=w[4], w5=w[5], w6=w[6], w7=w[7], w8=w[8], w9=w[9], w10=w[10], w11=w[11], w12=w[12], w13=w[13], w14=w[14])  )
 
 
 def full_os_details(hostname):
     node_dsinfo_filename = os.path.join(hostname, "dsinfo", "dsinfo.txt")
     os_type = "-"
-    os_version = "-"
-    dsi_os = "-"   ## docker system info result
+    os_version = "---"
+    dsi_os = " NoInfo "   ## docker system info result
     full_os_text = os_type + '-' + os_version + '/' + dsi_os
-    try:
+    hpv = " None "
+    try:      ## after setting some default values, we see what the dsinfo.txt file has
         with open(node_dsinfo_filename, 'r') as inf:
             for line in inf:
-                if line.startswith(" Operating System: "):
+                line = line.lstrip()
+                if line.startswith("Operating System: "):
                     dsi_os = line.split(': ')[1].strip()
                     dsi_os = dsi_os.replace('Red ', 'R').replace('Hat ', 'H').replace('Enterprise ', 'E')
                 if line.startswith("NAME="):
@@ -59,12 +61,19 @@ def full_os_details(hostname):
                     ## Just to make the output a little shorter
                     if os_type.startswith("Red"):
                         os_type = "RHEL"
-                elif line.startswith("VERSION="):
+                if line.startswith("VERSION="):
                     os_version = line.split('=')[1].strip().strip('"')
-                    full_os_text = os_type + '-' + os_version + '/' + dsi_os
-                    return full_os_text
-    except FileNotFoundError:
-        return full_os_text
+                full_os_text = os_type + '-' + os_version + '/' + dsi_os
+              
+                if line.startswith("Hypervisor vendor: "):
+                    hpv = line.split(': ')[1].strip()
+                    break
+                if line.startswith("mount"):   # reached this point? you will not find any line about Hypervisor, stop reading the rest of the file
+                    break
+            full_os_text = os_type + '-' + os_version + '/' + dsi_os
+            return full_os_text, hpv  #in case that the dsinfo.txt file has no line starting with Hypervisor vendor:  at least return - as hpv
+    except FileNotFoundError:        # for nodes that the SD did not gather info, at least return the default values
+        return full_os_text, hpv
 
 
 def getnodes(f):
@@ -92,12 +101,13 @@ def getnodes(f):
         os = "N/A"
         os_string = "N/A"
         addr = "N/A"
+        hypervisor = '-'
         if 'Architecture' in node['Description']['Platform']:
             arch = node['Description']['Platform']['Architecture']
         if 'OS' in node['Description']['Platform']:
             os = node['Description']['Platform']['OS']
             if os == "linux":
-                os_string = full_os_details(hostname)
+                os_string, hypervisor = full_os_details(hostname)
         avail = node['Spec']['Availability']
         state = node['Status']['State']
         if 'Addr' in node['Status']:
@@ -133,14 +143,14 @@ def getnodes(f):
         u_at = node['UpdatedAt'].split('T')[0]
         t_stamps = '/'.join([c_at,u_at])
 
-        node_tuples.append((hostname, id, role, os, os_string, avail, state, addr, engver, ucpdtrver, collect, orch, t_stamps, stsmsg))
+        node_tuples.append((hostname, id, role, os, os_string, hypervisor, avail, state, addr, engver, ucpdtrver, collect, orch, t_stamps, stsmsg))
 
     s = sorted(node_tuples, key=itemgetter(2,0))
     w = []
     for i in range(len(node_tuples[0])):
         w.append(len(max(s, key = lambda x: len(x[i]))[i]))
 
-    header = 'HOSTNAME ID ROLE OS OS_VERSION/docker_info_os AVAIL STATE IP MCR MKE/MSR COLLECT ORCHESTR CREATED/UPDATED STATUS_MESSAGE '
+    header = 'HOSTNAME ID ROLE OS OS_VERSION/docker_info_os HpVs AVAIL STATE IP MCR MKE/MSR COLLECT ORCHESTR CREATED/UPDATED STATUS_MESSAGE'
     row_print(header.split(' '), w)
     linemax = reduce(lambda x, y: x+y, w) + (2 * (len(w) - 1))
     print('-' * linemax)
