@@ -9,15 +9,15 @@ ls -l
 You should see the 3 files. Stay in this folder MirantisScripts and call it.
 
 Usage  for linux (and Windows with wsl) :
-
+```
 ./sd_handle.py -c 12345 
-
+```
 where 12345 is the SF case number 
 
 Usage for macos :
-
+```
 python3 sd_handle.py -c 12345
-
+```
 - The script sd_handle.py assumes there is only 1 downloaded docker-support-xxx.zip in your ~/Downloads/ folder. 
 And that is why it will move any new zip in another folder, after it finish processing it.
 
