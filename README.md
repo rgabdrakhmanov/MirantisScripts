@@ -1,14 +1,11 @@
 Weather you are on a linux/macos or a Windows Subsystem for Linux, the scripts should work.
 In a terminal session (either direct for linux/macos, or after starting the wsl in CMD), go to your Documents folder and clone :
-
+```
 cd Documents
-
 git clone https://github.com/georgiosdoumas/MirantisScripts.git
-
 cd MirantisScripts
-
 ls -l 
-
+```
 You should see the 3 files. Stay in this folder MirantisScripts and call it.
 
 Usage  for linux (and Windows with wsl) :
