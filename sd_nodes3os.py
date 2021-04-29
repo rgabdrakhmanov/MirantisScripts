@@ -56,6 +56,7 @@ def full_os_details(hostname):
                 if line.startswith("Operating System: "):
                     dsi_os = line.split(': ')[1].strip()
                     dsi_os = dsi_os.replace('Red ', 'R').replace('Hat ', 'H').replace('Enterprise ', 'E')
+                    dsi_os = dsi_os.split('(')[0]  # RHEL 7.9 (Maipo) will become RHEL 7.9
                 if line.startswith("NAME="):
                     os_type = line.split('=')[1].strip().strip('"')
                     ## Just to make the output a little shorter
@@ -63,6 +64,7 @@ def full_os_details(hostname):
                         os_type = "RHEL"
                 if line.startswith("VERSION="):
                     os_version = line.split('=')[1].strip().strip('"')
+                    os_version = os_version.split('(')[0]   ## 20.04.1 LTS (Focal Fossa)  --> 20.04.1 LTS
                 full_os_text = os_type + '-' + os_version + '/' + dsi_os
               
                 if line.startswith("Hypervisor vendor: "):
