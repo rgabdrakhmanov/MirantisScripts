@@ -46,7 +46,7 @@ else:
 Path(TARGETPATH).mkdir(parents = True, exist_ok = True)    # creates the folders Documents/SDextractions if they do not exist
 
 sd_arg_parser = argparse.ArgumentParser(description = "Support Dump handler for downloaded sd zip files", add_help=True)
-sd_arg_parser.add_argument('-c', '--case', dest='sfcase', help="The SF case number typed as imple integer: -c 43215", default='0', type=str)
+sd_arg_parser.add_argument('-c', '--case', dest='sfcase', help="The SF case number typed as simple integer: -c 43215", default='0', type=str)
 sf_case_arg = sd_arg_parser.parse_args()
 sf_case = sf_case_arg.sfcase
 if sf_case == '0':
@@ -75,6 +75,8 @@ Path(folder_to_move_sdzip_files).mkdir(parents = True, exist_ok = True)
 print("------  Will move the downloaded zip under {}".format(folder_to_move_sdzip_files))
 shutil.move(fullpath_sd_zip_no_spaces, os.path.join(folder_to_move_sdzip_files, corrected_sd_name))
 print("    Doing the nodes summary, and pattern search:")
+target_output_file = '../' + target_subfolder_for_extracted + '.txt'
+print("Output of grep patterns will be saved under folder {} in file {}".format(sf_case, target_subfolder_for_extracted + '.txt'))
 os.chdir(target)
 try:
     sd_nodes3os.getnodes('ucp-nodes.txt')
@@ -83,4 +85,12 @@ except :
 if  WIN:
     sys.exit("Running on a Windows machine, so I cannot call the sd_patterns_search.sh. You can install WSL to have Ubuntu under windows")
 else:
-    run_sd_patterns = subprocess.run( os.path.join(SCRIPTSDIR,'sd_patterns_search.sh') ) ## sd_patterns_search will be turned into python someday
+    ## sd_patterns_search will be turned into python someday
+    run_sd_patterns = subprocess.Popen( os.path.join(SCRIPTSDIR,'sd_patterns_search.sh'), stdout = subprocess.PIPE)
+    stdout_text = run_sd_patterns.communicate()[0].decode('utf-8')  # Redirect and ...
+    with open(target_output_file, 'w') as outf:   # ... save the output of sd_patterns_search.sh to the file
+        print(stdout_text, file = outf)
+## Output the contents of the file on console for the user to see immediately
+with open(target_output_file, 'r') as readf:
+    patterns_search_text = readf.read()
+print(patterns_search_text)
