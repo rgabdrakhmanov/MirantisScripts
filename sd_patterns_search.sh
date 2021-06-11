@@ -34,6 +34,7 @@ PATTERNS=(
 'etcd cluster is unavailable or misconfigured'
 'Failed to create existing container'
 'Failed to load config file'
+"error detaching from network dtr-ol: could not find network attachment for container .* to network dtr-ol"
 'Failed to allocate address: Invalid address space'
 ' error="failed to allocate network IP for task '
 'Failed to delegate: Failed to allocate address: No available addresses'
