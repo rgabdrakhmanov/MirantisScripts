@@ -19,20 +19,20 @@ import platform
 from pathlib import Path
 
 HOSTENV = platform.platform()
-if HOSTENV.startswith('Windows'):      ## for a windows laptop, this would be eg 'Windows-10-10.0.19041-SP0'
+if HOSTENV.casefold().startswith('windows'):      ## for a windows laptop, this would be eg 'Windows-10-10.0.19041-SP0'
     WIN, WSL = True, False
-elif HOSTENV.find('Microsoft') != -1:  ## for a wsl(WindowsSubsystemForLinux) this can be 'Linux-4.4.0-19041-Microsoft-x86_64-with-glibc2.29'
+elif HOSTENV.casefold().find('microsoft') != -1:  ## for a wsl(WindowsSubsystemForLinux) this can be 'Linux-4.4.0-19041-Microsoft-x86_64-with-glibc2.29'
     WIN, WSL = False, True
 else:
     WIN, WSL = False, False            ## then we are on a linux or macos
-SCRIPTSDIR = os.getcwd()               ## expected to be ~/Documents/MirantisScripts
-if 'sd_nodes3os.py' in os.listdir():
+SCRIPTSDIR = os.path.dirname(os.path.realpath(__file__))               ## expected to be sd_handle.py location (to be able to use alias or to not have to cd to this folder)
+if 'sd_nodes3os.py' in os.listdir(SCRIPTSDIR):
     import sd_nodes3os
 else:
     sys.exit('sd_nodes3os.py is not in the {}, have you done the git clone correctly?'.format(SCRIPTSDIR))
-if 'sd_patterns_search.sh' not in os.listdir():
+if 'sd_patterns_search.sh' not in os.listdir(SCRIPTSDIR):
     sys.exit('sd_patterns_search.sh is not in the {}, have you done the git clone correctly?'.format(SCRIPTSDIR))
-elif not os.access('sd_patterns_search.sh', os.X_OK):
+elif not os.access(os.path.join(SCRIPTSDIR,'sd_patterns_search.sh'), os.X_OK):
     sys.exit('sd_patterns_search.sh is not executable, please give it the execute permission.')
 
 HOME = os.path.expanduser("~")                                    ## /home/wsluser  or /home/linuxusername or /User/macosuser
@@ -40,7 +40,7 @@ TARGETPATH = os.path.join(HOME, 'Documents', 'SDextractions')     ## I will corr
 if WSL:                                                                ## I do not want to use the /home/wsluser but the actual Windows folders
     BASEUSERDIR = os.path.abspath(os.getcwd()).split('Documents')[0]   ## that should be /mnt/Users/wsluser name/
     SD_DOWNLOAD_DIR =  os.path.join(BASEUSERDIR, 'Downloads')          ## that should be /mnt/Users/wsluser name/Downloads
-    TARGETPATH = os.path.join(BASEUSERDIR, 'Documents', 'SDextractions')  ## that should be /mnt/Users/wsluser name/Documents/SDextractions
+#    TARGETPATH = os.path.join(BASEUSERDIR, 'Documents', 'SDextractions')  ## that should be /mnt/Users/wsluser name/Documents/SDextractions (but it is much slower like that, so better use folder inside WSL???)
 else:
     SD_DOWNLOAD_DIR = os.path.join(HOME, 'Downloads')                 ## /home/username/Downloads  or /User/somename/Downloads
 Path(TARGETPATH).mkdir(parents = True, exist_ok = True)    # creates the folders Documents/SDextractions if they do not exist
