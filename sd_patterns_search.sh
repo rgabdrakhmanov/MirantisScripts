@@ -59,6 +59,8 @@ PATTERNS=(
 'OVERLAP on Network'
 'no space left on device'
 'cannot allocate memory'
+'NodeFailed'
+'"shim reaped"'
 )
 
 for PATTERN in "${PATTERNS[@]}"
